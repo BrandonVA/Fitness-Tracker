@@ -20,7 +20,16 @@ npm i
 
 ## Usage 
 
-First your need to install mongoDB on your local machine and then run node server.js and go to http://localhost:3000/ to see the application in action or visit the live site. Or you can run the seeders/seed.js in node to populate the db for you.
+First your need to install mongoDB on your local machine and then run node server.js and go to http://localhost:3000/ to see the application in action or visit the live site then create a workout. Or you can run the seeders/seed.js in node to populate the db for you.
+<br>
+-Add some exercises for your workout.
+<br>
+<img src="readmeImages\add-workout.png">
+<br>
+-See your total for your last 7 workouts.
+<img src="readmeImages\dashboard.png">
+<br>
+
 
 
 ## Contributing 
