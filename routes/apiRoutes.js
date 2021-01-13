@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const db = require("../models");
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout_db", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout_db", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 mongoose.set('useFindAndModify', false);
 
 module.exports = (app) => {
@@ -76,72 +76,3 @@ module.exports = (app) => {
     })
 
 }
-
-// ______________________________________SHOULD WORK???... YES_________________________________________________________________
-//_______________________________Same as "/api/workouts/range" but MORE DESCRIPTIVE NAMES______________________________________
-// Link for reference: https://stackoverflow.com/questions/34967482/lookup-on-objectids-in-an-array
-
-
-// Old way but more descriptive of how its working
-// Leaving as a reference incase of my brain breaks again.
-
-
-
-// db.Workout.aggregate([
-
-//     { $sort: { _id: -1 } },
-//     { $limit: 7 },
-
-//     // Unwind the source
-//     { "$unwind": "$exercises" },
-//     // Do the lookup matching
-//     {
-//         "$lookup": {
-//             "from": "exercises",
-//             "localField": "exercises",
-//             "foreignField": "_id",
-//             "as": "exerciseObjects"
-//         }
-//     },
-//     // Unwind the result arrays ( likely one or none )
-//     { "$unwind": "$exerciseObjects" },
-//     // Group back to arrays
-//     {
-//         "$group": {
-//             "_id": "$_id",
-//             "exercises": { "$push": "$exercises" },
-//             "exerciseObjects": { "$push": "$exerciseObjects" }
-//              "day": {$first: "$day"},
-//         }
-//     },
-//     {
-//         $addFields: {
-//             totalWeight: { $sum: "$exerciseObjects.weight" },
-//             totalDuration: { $sum: "$exerciseObjects.duration" }
-//         }
-//     }
-// ])
-
-// __________________________SAME AS ABOVE __________________________________________________
-// just using the updated version where $unwind isn't needed
-// db.Workout.aggregate([
-
-//     { $sort: { _id: -1 } },
-//     { $limit: 7 },
-
-//     {
-//         $lookup: {
-//             from: "exercises",
-//             localField: "exercises",
-//             foreignField: "_id",
-//             as: "exercises"
-//         }
-//     },
-//     {
-//         $addFields: {
-//             totalWeight: { $sum: "$exercises.weight" },
-//             totalDuration: { $sum: "$exercises.duration" }
-//         }
-//     }
-// ])
-
