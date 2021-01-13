@@ -1,8 +1,15 @@
 const mongoose = require("mongoose");
 const db = require("../models");
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout_db", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
-mongoose.set('useFindAndModify', false);
+mongoose.connect(
+    process.env.MONGODB_URI || "mongodb://localhost/workout_db",
+    { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    }
+);
 
 module.exports = (app) => {
     app.get("/api/workouts", (req, res) => {
