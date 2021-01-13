@@ -11,6 +11,7 @@ mongoose.connect(
     }
 );
 
+// Finding all the workouts in the db
 module.exports = (app) => {
     app.get("/api/workouts", (req, res) => {
         db.Workout.find({})
@@ -23,8 +24,7 @@ module.exports = (app) => {
             });
     });
 
-
-
+    // Creates an exercise for a workout than updates the workout collection to include that exercises ObjectId
     app.put("/api/workouts/:id", (req, res) => {
         const id = req.params.id
         db.Exercise.create(req.body)
@@ -37,8 +37,7 @@ module.exports = (app) => {
             });
     });
 
-
-
+    // Creates a workout.
     app.post("/api/workouts", (req, res) => {
         db.Workout.create(req.body)
             .then(Workout => {
@@ -49,11 +48,9 @@ module.exports = (app) => {
             });
     });
 
-
+    // Sends out data for the last 7 workouts.
     app.get("/api/workouts/range", (req, res) => {
-
         db.Workout.aggregate([
-
             // Sorting and limiting to last 7 entered
             { $sort: { _id: -1 } },
             { $limit: 7 },
