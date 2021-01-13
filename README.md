@@ -6,6 +6,10 @@
 This is a Fitness tracking application that uses a node/express backend with a mongoDB database. You can add workouts and exercises for those workouts and see a graph for the totals for your last 7 workouts.
 
 
+[Deployed-Site](https://enigmatic-escarpment-34858.herokuapp.com/?id=5fff78b1d9ed690015361404) <br />
+[Project-Page](https://github.com/BrandonVA/Fitness-Tracker)
+
+
 ## Table of Contents
 
 * [Installation](#installation)
