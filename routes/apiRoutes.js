@@ -14,8 +14,27 @@ mongoose.connect(
 // Finding all the workouts in the db
 module.exports = (app) => {
     app.get("/api/workouts", (req, res) => {
-        db.Workout.find({})
-            .populate("exercises")
+        db.Workout.aggregate([
+            // Sorting and limiting to last 1 entered
+            { $sort: { _id: -1 } },
+            { $limit: 1 },
+            {
+                // Populating the aggregate results with exercises collection.
+                $lookup: {
+                    from: "exercises",    // From the exercises collection
+                    localField: "exercises", // Local field to make the connection
+                    foreignField: "_id",    // using _id to connect the two
+                    as: "exercises"         // setting the value of the populated collections as the same name so it overwrites the previous one.
+                }
+            },
+            {
+                // Adding new fields for the total of weights and duration.
+                $addFields: {
+                    totalDuration: { $sum: "$exercises.duration" }
+                }
+            }
+        ])
+            // .populate("exercises")
             .then(Workout => {
                 res.json(Workout);
             })
